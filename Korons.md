@@ -113,3 +113,16 @@ $$
 * 进入循环：得到这个新的K线数据后再带入生成新的token，进行长程推理预测。
 其中 $\hat{\mathbf{X}}$ 是逆量化后的连续 OHLCNA 序列。
 ![K_line 训练流程图](asset/K_line.png)
+
+## 好了，我们终于熬过了令人烦躁而充满疑惑与惊讶的原理解释阶段，现在我们进入到应用阶段。
+[github](https://github.com/shiyu-coder/Kronos)
+
+[huggingface](https://huggingface.co/NeoQuasar/Kronos-base)
+
+### 我们先直接上A股，如果存在明显领域偏差再做微调。
+先运行Kronos/examples/prediction_cn_markets_day.py这个文件
+
+### 做回测
+运行Kronos/examples/run_backtest_kronos.py
+
+### 尝试轻量微调
