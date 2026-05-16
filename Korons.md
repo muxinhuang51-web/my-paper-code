@@ -1,7 +1,7 @@
 # Kronos: A Foundation Model for the Language of Financial Markets
 https://github.com/shiyu-coder/Kronos
 ## 今天我们要介绍的是Krones，一个由清华大学开源的K线基础模型
-1. 什么是基础模型（LM）？
+1. 什么是基础模型（FM）？
 	- 基础模型通常指在大规模数据上预训练、可迁移到多任务的通用模型。本文中的LM由股票，期货，虚拟币等市场数据训练，学习到了所有类型金融市场中的共有规律，再经过微调对齐特定数据，可以泛化适应到不同市场
 2. 什么是K线？
 	- K线（OHLC）用开盘价、最高价、最低价、收盘价刻画一个时间窗口内的价格行为。
