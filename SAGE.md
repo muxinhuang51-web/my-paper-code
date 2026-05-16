@@ -38,16 +38,14 @@ $$
 7. 结构感知和关系感知：我们希望结构图长得很像的图生成的嵌入向量也很像
 
 **行为距离与自适应权重**
-
 $$
-\begin{aligned}
-&\text{设 } Z_i\in\mathbb{R}^{D\times N}\text{ 为因子 } \alpha_i \text{ 的时间序列向量， } Z_i(d)\in\mathbb{R}^N \text{ 为第 } d \text{ 日的输出。 定义行为距离：}\\
-&d_{\mathrm{behav}}(\alpha_i,\alpha_j)=\frac{1}{D}\sum_{d=1}^D\|Z_i(d)-Z_j(d)\|^2 \tag{8}\\[6pt]
-&w_{ij}=\frac{\exp\big(-\|e_{\alpha_i}-e_{\alpha_j}\|^2\big)}{\sum_{k\in\mathcal{N}_K(\alpha_i)}\exp\big(-\|e_{\alpha_i}-e_{\alpha_k}\|^2\big)},\quad j\in\mathcal{N}_K(\alpha_i) \tag{9}\\[6pt]
-&R_{SA}(\alpha_i)=\exp\Big(-\sum_{j\in\mathcal{N}_K(\alpha_i)} w_{ij}\cdot d_{\mathrm{behav}}(\alpha_i,\alpha_j)\Big) \tag{10}
-\end{aligned}
+\begin{align}
+	ext{设 } Z_i\in\mathbb{R}^{D\times N}\text{ 为因子 } \alpha_i \text{ 的时间序列向量， } Z_i(d)\in\mathbb{R}^N \text{ 为第 } d \text{ 日的输出。 定义行为距离：}\\
+d_{\mathrm{behav}}(\alpha_i,\alpha_j)=\frac{1}{D}\sum_{d=1}^D\|Z_i(d)-Z_j(d)\|^2 \tag{8}\\[6pt]
+w_{ij}=\frac{\exp\big(-\|e_{\alpha_i}-e_{\alpha_j}\|^2\big)}{\sum_{k\in\mathcal{N}_K(\alpha_i)}\exp\big(-\|e_{\alpha_i}-e_{\alpha_k}\|^2\big)},\quad j\in\mathcal{N}_K(\alpha_i) \tag{9}\\[6pt]
+R_{SA}(\alpha_i)=\exp\Big(-\sum_{j\in\mathcal{N}_K(\alpha_i)} w_{ij}\cdot d_{\mathrm{behav}}(\alpha_i,\alpha_j)\Big) \tag{10}
+\end{align}
 $$
-
 其中 $\mathcal{N}_K(\alpha_i)$ 表示 $\alpha_i$ 的 $K$-近邻。
 
 ## 关键的奖励函数：三奖励加权和
