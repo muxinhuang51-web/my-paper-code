@@ -40,8 +40,17 @@ scratch(暂存)：通用计算器堆，常量池，手动管理的缓存
 并行二叉树遍历
 
 ```python
-for h in range(inp.rounds):
-        
+
+    for h in range(inp.rounds):
+        for i in range(len(inp.indices)):
+            idx = inp.indices[i]
+            val = inp.values[i]
+            val = myhash(val ^ t.values[idx])
+            idx = 2 * idx + (1 if val % 2 == 0 else 2)
+            idx = 0 if idx >= len(t.values) else idx
+            inp.values[i] = val
+            inp.indices[i] = idx
+    
 ```
 ┌─────────────────────────────────────────────────────┐
 │                开始一轮（共 rounds 轮）               │
