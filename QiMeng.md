@@ -1,0 +1,72 @@
+高性能库代码在不同指令集架构上的迁移 arm-risc_v
+处理性能内核：SIMD指令，派发逻辑，构建系统集成等操作
+* SIMD受到很多硬件限制
+库级依赖关系：现有的主要是函数级任务，没有库级迁移
+
+数据公开、目标 RVV 实现也来自开源仓库，存在训练数据泄漏或“见过答案”的风险
+
+* bench设计：假设算法和向量化结构已经存在，主要考察模型能否理解源架构的 SIMD 语义，并用目标架构的 intrinsic 重新表达。
+高性能开源库：广泛被实际部署
+操作符选择和验证：防止出现代码可运行但是性能不足
+操作过滤： 优先筛选最先被调用的操作和可以被SIMD显著优化的
+删目标，留同类，最后测试
+
+
+* 指标test：
+可编译性CS
+功能正确性TS：使用Google Test开发测试面向操作符，是否SIMD和标量代码实现相同
+性能SR：官方基准+自建负载表现
+测试： 通过率，时间比，fats_p
+
+官方测试：
+选择agent:TRAE SWE JOY Openhand
+模型：GPT GEmini
+
+
+我的代码运行：
+无agent设计，测试和性能代码，真实硬件，只有可编译性指标，QEMU用户态模拟
+流程复现：dsv4 flash：（单agent简单调用，测试了4个任务
+* 只测试了CS TS
+CS全过，TS通过3/4
+
+虚拟机环境多次报错失败
+
+TS失败分析：
+
+/* 参考实现 */   vqmovn
+y= vnsrl(tmp0,16);
+dest = vncvt(y)；
+/* ds生成 */
+cb16 = vnclipu(cb32,16,RNU);
+cb8 = vnsrl(cb16,0);
+
+
+
+结论：
+成功率低，表明主要是模式匹配而非推理
+
+* flash模型为基础，在FSCM论文的数据集上测试两种智能体框架的区别
+![alt text](asset\FSCM.png)
+## dsh测试
+使用loop后窄化操作使用正确
+CS编译:
+TS功能:
+SR向量化比例:
+## Argus测试
+
+## codex测试
+
+## 对比FSCM的测试的数据
+cs:失败后修复正确
+TS：失败，但是原代码也失败，证明是环境问题
+
+
+![alt text](asset/FSCM+V4.png)
+
+![alt text](asset/对比.png)
+
+![alt text](asset/core.png)
+
+![alt text](asset/未闭环FSCM.png)
+
+![alt text](asset/core完整.png)
